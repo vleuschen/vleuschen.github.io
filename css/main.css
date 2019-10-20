@@ -154,7 +154,7 @@ body {
   background: #f5f7f9;
   color: #555;
   font-family: 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
-  font-size: 16px;
+  font-size: 12px;
   line-height: 2;
 }
 @media (max-width: 991px) {
@@ -175,22 +175,22 @@ h6 {
   padding: 0;
 }
 h1 {
-  font-size: 23.875px;
+  font-size: 15.875px;
 }
 h2 {
-  font-size: 23.75px;
+  font-size: 15.75px;
 }
 h3 {
-  font-size: 23.625px;
+  font-size: 15.625px;
 }
 h4 {
-  font-size: 23.5px;
+  font-size: 15.5px;
 }
 h5 {
-  font-size: 23.375px;
+  font-size: 15.375px;
 }
 h6 {
-  font-size: 23.25px;
+  font-size: 15.25px;
 }
 p {
   margin: 0 0 20px 0;
@@ -1680,7 +1680,7 @@ article:last-child .post-eof {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #79527e;
+  background: #a79d59;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
