@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/duola.jpeg?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/duola.jpeg?v=7.4.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-pace-theme-mini.min.css?v=1.0.2">
+  <script src="true"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.4.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="ElasticSearch是一个基于Lucene的搜索服务器，它提供了一个分布式多用户能力的全文搜索引擎，基于Restful API web接口，ElasticSearch是Java开发的。总结： ElasticSearch是一个基于Lucene的高扩展的分布式搜索服务器，支持开箱即用； ElasticSearch隐藏了Lucene的复杂性，对外提供Restful接口来操作索引、搜索；">
+<meta name="keywords" content="ElasticSearch入门">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ElasticSearch入门与安装">
+<meta property="og:url" content="http://yoursite.com/2019/11/16/ElasticSearch入门与安装/index.html">
+<meta property="og:site_name" content="VleusChen">
+<meta property="og:description" content="ElasticSearch是一个基于Lucene的搜索服务器，它提供了一个分布式多用户能力的全文搜索引擎，基于Restful API web接口，ElasticSearch是Java开发的。总结： ElasticSearch是一个基于Lucene的高扩展的分布式搜索服务器，支持开箱即用； ElasticSearch隐藏了Lucene的复杂性，对外提供Restful接口来操作索引、搜索；">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://pic.stackoverflow.wiki/uploadImages/240e/390/caf/df80/cded/8052/1463/fabc/2019/11/16/17/48/c7f76274-7519-45c6-9e9b-1e6e7c858b5c.png">
+<meta property="og:updated_time" content="2019-11-16T09:49:15.845Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ElasticSearch入门与安装">
+<meta name="twitter:description" content="ElasticSearch是一个基于Lucene的搜索服务器，它提供了一个分布式多用户能力的全文搜索引擎，基于Restful API web接口，ElasticSearch是Java开发的。总结： ElasticSearch是一个基于Lucene的高扩展的分布式搜索服务器，支持开箱即用； ElasticSearch隐藏了Lucene的复杂性，对外提供Restful接口来操作索引、搜索；">
+<meta name="twitter:image" content="https://pic.stackoverflow.wiki/uploadImages/240e/390/caf/df80/cded/8052/1463/fabc/2019/11/16/17/48/c7f76274-7519-45c6-9e9b-1e6e7c858b5c.png">
+  <link rel="canonical" href="http://yoursite.com/2019/11/16/ElasticSearch入门与安装/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>ElasticSearch入门与安装 | VleusChen</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">VleusChen</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">为了更美好的明天而战~</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/16/ElasticSearch入门与安装/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="程序员小陈">
+      <meta itemprop="description" content="技术分享与成长经历">
+      <meta itemprop="image" content="https://pic.stackoverflow.wiki/uploadImages/240e/390/caa/ecd0/bcd8/37b6/684a/c360/2019/11/12/23/28/e304e291-a53f-42cb-b565-a08af03cbda5.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="VleusChen">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">ElasticSearch入门与安装
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-11-16 17:46:46 / 修改时间：17:49:15" itemprop="dateCreated datePublished" datetime="2019-11-16T17:46:46+08:00">2019-11-16</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/ElasticSearch/" itemprop="url" rel="index"><span itemprop="name">ElasticSearch</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+            <div class="post-gallery-row">
+              <img src="https://pic.stackoverflow.wiki/uploadImages/240e/390/caf/df80/cded/8052/1463/fabc/2019/11/16/17/48/c7f76274-7519-45c6-9e9b-1e6e7c858b5c.png" itemprop="contentUrl">
+            
+          
+
+          </div>
+        </div>
+        <p>ElasticSearch是一个基于Lucene的搜索服务器，它提供了一个分布式多用户能力的全文搜索引擎，基于Restful API web接口，ElasticSearch是Java开发的。</p><p><strong>总结：</strong></p><ul>
+<li>ElasticSearch是一个基于Lucene的高扩展的分布式搜索服务器，支持开箱即用；</li>
+<li>ElasticSearch隐藏了Lucene的复杂性，对外提供Restful接口来操作索引、搜索；</li>
+</ul><a id="more"></a>
+
+
+<p><strong>优点：</strong></p>
+<ul>
+<li>扩展性好，可部署上百台服务器集群，处理PB级数据；</li>
+<li>近实时的去索引数据，搜索数据；</li>
+</ul>
+<h3 id="原理与应用"><a href="#原理与应用" class="headerlink" title="原理与应用"></a>原理与应用</h3><h4 id="索引结构"><a href="#索引结构" class="headerlink" title="索引结构"></a>索引结构</h4><p>下图为Elastic的索引结构，上边框是逻辑结构，下边框是物理结构，逻辑结构是为了更好的去描述ElasticSearch的工作原理及去使用物理结构中的索引文件：</p>
+<p><img src="https://pic.stackoverflow.wiki/uploadImages/240e/390/caf/df80/cded/8052/1463/fabc/2019/11/16/16/50/6bdc83dc-88a3-4ecb-a835-625f53ffef26.png" alt></p>
+<p>逻辑结构部分是一个倒排索引表：</p>
+<ul>
+<li>将要搜索的文档内容分词，所有不重复的词组成分词列表；</li>
+<li>将搜索的文档最终以Document方式存储起来</li>
+<li>每个词和document都有关联；</li>
+</ul>
+<p><img src="https://pic.stackoverflow.wiki/uploadImages/240e/390/caf/df80/cded/8052/1463/fabc/2019/11/16/16/53/2060941d-dd58-4b50-b2b1-902d5323b470.png" alt></p>
+<p>若想要搜索<code>quick brown</code>，只需要查找包含每个词条的文件：</p>
+<p><img src="https://pic.stackoverflow.wiki/uploadImages/240e/390/caf/df80/cded/8052/1463/fabc/2019/11/16/16/56/f6eb50d0-b99b-40a1-af41-9eb6e7f32bfa.png" alt></p>
+<p>两个文档都匹配，但是第一个文档比第二个匹配度更高，如果使用仅计算匹配词条数量的简单相似性算法，那么可以说，对于查询的相关性来讲，第一个文档比第二个文档更佳；</p>
+<h4 id="Restful应用方法"><a href="#Restful应用方法" class="headerlink" title="Restful应用方法"></a>Restful应用方法</h4><p>ElasticSearch提供Restful Api接口进行索引、搜索，并且支持多种客户端：</p>
+<p><img src="https://pic.stackoverflow.wiki/uploadImages/240e/390/caf/df80/cded/8052/1463/fabc/2019/11/16/17/03/6697877f-5091-4ce5-b4a9-0b621993a86b.png" alt></p>
+<p>es在项目中的运用方式为：</p>
+<p><img src="https://pic.stackoverflow.wiki/uploadImages/240e/390/caf/df80/cded/8052/1463/fabc/2019/11/16/17/10/6c6695d5-c6db-4bd4-96b8-5f16a12d7046.png" alt></p>
+<ul>
+<li>用户在前端搜索关键字；</li>
+<li>项目前端通过http方式请求项目服务端；</li>
+<li>项目服务端通过Http Restful方式请求ES集群进行搜索；</li>
+<li>ES集群从索引库检索数据；</li>
+</ul>
+<h3 id="ElasticSearch的安装"><a href="#ElasticSearch的安装" class="headerlink" title="ElasticSearch的安装"></a>ElasticSearch的安装</h3><h4 id="安装ElasticSearch"><a href="#安装ElasticSearch" class="headerlink" title="安装ElasticSearch"></a>安装ElasticSearch</h4><p>Windows环境直接下载zip包即可；</p>
+<p><img src="https://pic.stackoverflow.wiki/uploadImages/240e/390/caf/df80/cded/8052/1463/fabc/2019/11/16/17/16/20b0c8c2-848a-4d45-b918-cdac3dda05d5.png" alt></p>
+<p>目录结构介绍：</p>
+<ul>
+<li>bin：脚本目录，包括：启动、停止等可执行脚本；</li>
+<li>config：配置文件目录；</li>
+<li>data：索引目录，存放索引文件的地方；</li>
+<li>logs：日志目录；</li>
+<li>modules：模块目录，包括es的功能模块；</li>
+<li>plugins：插件目录，es支持插件机制；</li>
+</ul>
+<h4 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h4><p>ES的配置文件的地址根据安装形式的不同而不同：</p>
+<ul>
+<li>使用zip、tar安装，配置文件的地址在安装目录的config下。</li>
+<li>使用RPM安装，配置文件在/etc/elasticsearch下。</li>
+<li>使用MSI安装，配置文件的地址在安装目录的config下，并且会自动将config目录地址写入环境变量<br>ES_PATH_CONF。</li>
+</ul>
+<p>zip包安装，config下的三个文件为：</p>
+<ul>
+<li><strong>elasticsearch.yml:</strong>用于配置ElasticSearch运行参数</li>
+<li><strong>jvm.options:</strong>用于配置ElasticSearch JVM设置；</li>
+<li><strong>log4j.properties:</strong>用于配置ElasticSearch日志；</li>
+</ul>
+<h4 id="elasticsearch-yml"><a href="#elasticsearch-yml" class="headerlink" title="elasticsearch.yml"></a>elasticsearch.yml</h4><p>主要参数配置：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">cluster.name:</span> <span class="string">xuecheng</span></span><br><span class="line"><span class="string">node.name:</span> <span class="string">xc_node_1</span></span><br><span class="line"><span class="string">network.host:</span> <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span></span><br><span class="line"><span class="string">http.port:</span> <span class="number">9200</span></span><br><span class="line"><span class="string">transport.tcp.port:</span> <span class="number">9300</span></span><br><span class="line"><span class="string">node.master:</span> <span class="literal">true</span></span><br><span class="line"><span class="string">node.data:</span> <span class="literal">true</span></span><br><span class="line"><span class="string">discovery.zen.ping.unicast.hosts:</span> <span class="string">["0.0.0.0:9300",</span> <span class="string">"0.0.0.0:9301"</span><span class="string">]</span></span><br><span class="line"><span class="string">discovery.zen.minimum_master_nodes:</span> <span class="number">1</span></span><br><span class="line"><span class="string">node.ingest:</span> <span class="literal">true</span></span><br><span class="line"><span class="string">bootstrap.memory_lock:</span> <span class="literal">false</span></span><br><span class="line"><span class="string">node.max_local_storage_nodes:</span> <span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 注意设置data和logs文件的目录地址</span></span><br><span class="line"><span class="string">path.data:</span> <span class="attr">D:\tools\ElasticSearch\elasticsearch-6.2.1\data</span></span><br><span class="line"><span class="string">path.logs:</span> <span class="attr">D:\tools\ElasticSearch\elasticsearch-6.2.1\logs</span></span><br><span class="line"><span class="comment"># 跨域设置的属性，作用是跨域访问，比如head插件的安装</span></span><br><span class="line"><span class="string">http.cors.enabled:</span> <span class="literal">true</span></span><br><span class="line"><span class="string">http.cors.allow-origin:</span> <span class="string">/.*/</span></span><br></pre></td></tr></table></figure>
+
+<p>属性详解：</p>
+<ul>
+<li>*<em>cluster.name: *</em>配置es的集群名称，默认是elasticsearch，建议系改成一个更有意义的名字</li>
+<li><strong>node.name</strong>：节点名，通常一台物理机就是一个节点，es会默认指定一个名字，建议改成一个更有意义的名字，方便管理，一个或多个节点组成一个cluster集群，集群是一个逻辑的概念，节点是物理概念；</li>
+<li>*<em>path.conf: *</em>设置配置文件的存储路径，tar或zip包安装默认在es根目录下的config文件夹，rpm安装默认在/etc/elasticsearch </li>
+<li>*<em>path.data: *</em>设置索引数据的存储路径，默认是es根目录下的data文件夹，可以设置多个存储路径，用逗号隔开。 </li>
+<li><strong>network.host:</strong> 设置绑定主机的ip地址，设置为0.0.0.0表示绑定任何ip，允许外网访问，生产环境建议设置为具体的ip。 </li>
+<li>*<em>http.port: *</em> 9200 设置对外服务的http端口，默认为9200。</li>
+<li><strong>transport.tcp.port:</strong>9300，集群节点之间的通信端口；</li>
+<li>*<em>path.logs: *</em>设置日志文件的存储路径，默认是es根目录下的logs文件夹 path.plugins: 设置插件的存<br>放路径，默认是es根目录下的plugins文件夹</li>
+</ul>
+<h4 id="jvm-options"><a href="#jvm-options" class="headerlink" title="jvm.options"></a>jvm.options</h4><h4 id="log4j-properties"><a href="#log4j-properties" class="headerlink" title="log4j.properties"></a>log4j.properties</h4><h4 id="head插件安装"><a href="#head插件安装" class="headerlink" title="head插件安装"></a>head插件安装</h4><p>head插件是ES的一个可视化管理插件，用来监视ES的状态，并通过head客户端和ES服务进行交互，比如创建映射、创建索引等，head的项目地址在<a href="https://github.com/mobz/elasticsearch-head" target="_blank" rel="noopener">https://github.com/mobz/elasticsearch-head</a> </p>
+<p>从ES6.0开始，head插件支持使得node.js运行。</p>
+<p>1、安装node.js</p>
+<p>2、下载head并运行</p>
+<ul>
+<li><p>git clone git://github.com/mobz/elasticsearch-head.git </p>
+</li>
+<li><p>cd elasticsearch-head </p>
+</li>
+<li><p>npm install npm run start</p>
+</li>
+<li><p>open HTTP：//本地主机：9100 /</p>
+</li>
+</ul>
+<p>3、运行</p>
+<p>打开浏览器调试工具发现报错：</p>
+<blockquote>
+<p>Origin null is not allowed by Access-Control-Allow-Origin.<br>原因：head插件作为客户端要连接ES服务（localhost:9200），此时存在跨域问题，elasticsearch默认不允许跨域访问。</p>
+<p>解决方案：<br>设置elasticsearch允许跨域访问。<br>在config/elasticsearch.yml 后面增加以下参数：</p>
+<p>#开启cors跨域访问支持，默认为false http.cors.enabled: true #跨域访问允许的域名地址，(允许所有域名)以上使用正则 http.cors.allow-origin: /.*/<br>注意：将config/elasticsearch.yml另存为utf-8编码格式。<br>成功连接ES</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+        
+      
+	  <div>
+		  
+			<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+		  
+	  </div>
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/ElasticSearch入门/" rel="tag"># ElasticSearch入门</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/11/12/eureka的学习/" rel="next" title="SpringCloud之Eureka注册中心">
+                  <i class="fa fa-chevron-left"></i> SpringCloud之Eureka注册中心
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#原理与应用"><span class="nav-number">1.</span> <span class="nav-text">原理与应用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#索引结构"><span class="nav-number">1.1.</span> <span class="nav-text">索引结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Restful应用方法"><span class="nav-number">1.2.</span> <span class="nav-text">Restful应用方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ElasticSearch的安装"><span class="nav-number">2.</span> <span class="nav-text">ElasticSearch的安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装ElasticSearch"><span class="nav-number">2.1.</span> <span class="nav-text">安装ElasticSearch</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置文件"><span class="nav-number">2.2.</span> <span class="nav-text">配置文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#elasticsearch-yml"><span class="nav-number">2.3.</span> <span class="nav-text">elasticsearch.yml</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jvm-options"><span class="nav-number">2.4.</span> <span class="nav-text">jvm.options</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#log4j-properties"><span class="nav-number">2.5.</span> <span class="nav-text">log4j.properties</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#head插件安装"><span class="nav-number">2.6.</span> <span class="nav-text">head插件安装</span></a></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="https://pic.stackoverflow.wiki/uploadImages/240e/390/caa/ecd0/bcd8/37b6/684a/c360/2019/11/12/23/28/e304e291-a53f-42cb-b565-a08af03cbda5.jpg"
+      alt="程序员小陈">
+  <p class="site-author-name" itemprop="name">程序员小陈</p>
+  <div class="site-description" itemprop="description">技术分享与成长经历</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/vleuschen" title="GitHub &rarr; https://github.com/vleuschen" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">程序员小陈</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.4.0</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+
+
+    
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/pisces.js?v=7.4.0"></script>
+<script src="/js/next-boot.js?v=7.4.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
