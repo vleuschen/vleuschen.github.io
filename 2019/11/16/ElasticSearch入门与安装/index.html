@@ -61,15 +61,15 @@
   <meta name="description" content="ElasticSearch是一个基于Lucene的搜索服务器，它提供了一个分布式多用户能力的全文搜索引擎，基于Restful API web接口，ElasticSearch是Java开发的。总结： ElasticSearch是一个基于Lucene的高扩展的分布式搜索服务器，支持开箱即用； ElasticSearch隐藏了Lucene的复杂性，对外提供Restful接口来操作索引、搜索；">
 <meta name="keywords" content="ElasticSearch入门">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ElasticSearch入门与安装">
+<meta property="og:title" content="ElasticSearch安装与入门学习">
 <meta property="og:url" content="http://yoursite.com/2019/11/16/ElasticSearch入门与安装/index.html">
 <meta property="og:site_name" content="VleusChen">
 <meta property="og:description" content="ElasticSearch是一个基于Lucene的搜索服务器，它提供了一个分布式多用户能力的全文搜索引擎，基于Restful API web接口，ElasticSearch是Java开发的。总结： ElasticSearch是一个基于Lucene的高扩展的分布式搜索服务器，支持开箱即用； ElasticSearch隐藏了Lucene的复杂性，对外提供Restful接口来操作索引、搜索；">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://pic.stackoverflow.wiki/uploadImages/240e/390/caf/df80/cded/8052/1463/fabc/2019/11/16/17/48/c7f76274-7519-45c6-9e9b-1e6e7c858b5c.png">
-<meta property="og:updated_time" content="2019-11-16T09:49:15.845Z">
+<meta property="og:updated_time" content="2019-11-17T02:41:18.369Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ElasticSearch入门与安装">
+<meta name="twitter:title" content="ElasticSearch安装与入门学习">
 <meta name="twitter:description" content="ElasticSearch是一个基于Lucene的搜索服务器，它提供了一个分布式多用户能力的全文搜索引擎，基于Restful API web接口，ElasticSearch是Java开发的。总结： ElasticSearch是一个基于Lucene的高扩展的分布式搜索服务器，支持开箱即用； ElasticSearch隐藏了Lucene的复杂性，对外提供Restful接口来操作索引、搜索；">
 <meta name="twitter:image" content="https://pic.stackoverflow.wiki/uploadImages/240e/390/caf/df80/cded/8052/1463/fabc/2019/11/16/17/48/c7f76274-7519-45c6-9e9b-1e6e7c858b5c.png">
   <link rel="canonical" href="http://yoursite.com/2019/11/16/ElasticSearch入门与安装/">
@@ -86,7 +86,7 @@
   };
 </script>
 
-  <title>ElasticSearch入门与安装 | VleusChen</title>
+  <title>ElasticSearch安装与入门学习 | VleusChen</title>
   
 
 
@@ -237,7 +237,7 @@
       <meta itemprop="name" content="VleusChen">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">ElasticSearch入门与安装
+        <h1 class="post-title" itemprop="name headline">ElasticSearch安装与入门学习
 
           
         </h1>
@@ -253,11 +253,19 @@
                 
               
 
-              <time title="创建时间：2019-11-16 17:46:46 / 修改时间：17:49:15" itemprop="dateCreated datePublished" datetime="2019-11-16T17:46:46+08:00">2019-11-16</time>
+              <time title="创建时间：2019-11-16 17:46:46" itemprop="dateCreated datePublished" datetime="2019-11-16T17:46:46+08:00">2019-11-16</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-11-17 10:41:18" itemprop="dateModified" datetime="2019-11-17T10:41:18+08:00">2019-11-17</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -384,6 +392,118 @@
 <p>解决方案：<br>设置elasticsearch允许跨域访问。<br>在config/elasticsearch.yml 后面增加以下参数：</p>
 <p>#开启cors跨域访问支持，默认为false http.cors.enabled: true #跨域访问允许的域名地址，(允许所有域名)以上使用正则 http.cors.allow-origin: /.*/<br>注意：将config/elasticsearch.yml另存为utf-8编码格式。<br>成功连接ES</p>
 </blockquote>
+<h3 id="创建索引库（Mysql的表）"><a href="#创建索引库（Mysql的表）" class="headerlink" title="创建索引库（Mysql的表）"></a>创建索引库（Mysql的表）</h3><p>ES的索引库是一个逻辑概念，它包括了分词列表及文档列表，同一个索引库中存储了相同类型的文档。<strong>ES的索引库相当于MySQL中的表，或相当于Mongodb中的集合。</strong></p>
+<p>关于<em>索引</em>这个词：</p>
+<p>索引（名词）：ES是基于Lucene构建的一个索引服务，它要从索引库搜索符合条件的索引数据；</p>
+<p>索引（动词）：索引库刚创建的时候是空的，将数据添加到索引库的过程称为索引；</p>
+<h4 id="使用postman或curl的接口测试工具创建"><a href="#使用postman或curl的接口测试工具创建" class="headerlink" title="使用postman或curl的接口测试工具创建"></a>使用postman或curl的接口测试工具创建</h4><p> put <a href="http://localhost:9200/索引名称" target="_blank" rel="noopener">http://localhost:9200/索引名称</a></p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="attr">"settings"</span>:&#123;</span><br><span class="line">		<span class="attr">"index"</span>:&#123;</span><br><span class="line">			<span class="attr">"number_of_shards"</span>:<span class="number">1</span>,</span><br><span class="line">			<span class="attr">"number_of_replicas"</span>:<span class="number">0</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>number_of_shards:</strong>设置分片的数量，在集群中通常设置多个分片，表示一个索引库将拆成多片分别存储在不同的节点上，提高ES的处理能力和高可用，入门程序使用的是单机环境，设置为1；</p>
+<p><strong>number_of_replicas:</strong>设置副本的数量，设置副本是为了提高ES的高可靠性，单机环境设置为0</p>
+<h4 id="使用head插件创建索引库："><a href="#使用head插件创建索引库：" class="headerlink" title="使用head插件创建索引库："></a>使用head插件创建索引库：</h4><p>直接创建即可，设置分片数量和副本数量；</p>
+<h3 id="创建映射（Mysql的字段）"><a href="#创建映射（Mysql的字段）" class="headerlink" title="创建映射（Mysql的字段）"></a>创建映射（Mysql的字段）</h3><h4 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h4><p>在索引中每个文档都包括了一个或多个field（映射），创建映射就是向索引库中创建field的过程，下边是document和fied与关系型数据库的概念的类比：</p>
+<ul>
+<li>文档（Document）———————–Row记录<ul>
+<li>字段（Field）———————— Columns列</li>
+</ul>
+</li>
+</ul>
+<p>注意：6.0之前的版本有type（类型）概念，type相当于关系数据库的表，ES官方将在ES9.0版本中彻底删除type。</p>
+<p>问：创建索引库相当于关系型数据库中的数据库还是表？</p>
+<ul>
+<li>如果相当于数据库就表示一个索引库可以创建很多<strong>不同类型的文档</strong>；</li>
+<li>如果相当于表就表示一个数据库<strong>只能存储相同类型的文档</strong>，ES官方建议是一个索引库中只存储相同类型的文档；</li>
+</ul>
+<h4 id="创建映射"><a href="#创建映射" class="headerlink" title="创建映射"></a>创建映射</h4><p>将课程信息存储到ES中，这里创建课程信息的映射，先来一个简单的映射如下：</p>
+<p>potsman发送： post http:/localhost:9200/索引库名词/类型名称/_mapping；</p>
+<p>创建xc_course的映射，包括三个字段：name、description、studymondel；</p>
+<p>由于ES6.0版本还没有将type彻底删除，这里将type起一个无意义的名字：</p>
+<p>post请求：<a href="http://localhost:9200/xc_course/doc/_mapping" target="_blank" rel="noopener">http://localhost:9200/xc_course/doc/_mapping</a></p>
+<p>意思是在xc_course索引库下的doc类型下创建映射，doc是类型名，可以自定义，在ES6.0中要弱化类型概念，就随便其一个名字</p>
+<p>请求的时候创建的的映射参数如下：</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="attr">"properties"</span>:&#123;</span><br><span class="line">		<span class="attr">"name"</span>:&#123;</span><br><span class="line">			<span class="attr">"type"</span>:<span class="string">"text"</span></span><br><span class="line">		&#125;,</span><br><span class="line">		<span class="attr">"description"</span>:&#123;</span><br><span class="line">			<span class="attr">"type"</span>:<span class="string">"text"</span></span><br><span class="line">		&#125;,</span><br><span class="line">		<span class="attr">"studymondel"</span>:&#123;</span><br><span class="line">			<span class="attr">"type"</span>:<span class="string">"keyword"</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>映射创建成功，查看head页面：</p>
+<p><img src="https://pic.stackoverflow.wiki/uploadImages/240e/390/caf/df80/a8b7/2677/2165/9437/2019/11/17/09/31/e94d9cfc-3e12-4f41-be30-4cc34e29fdbc.png" alt></p>
+<h3 id="创建文档（Mysql表中的数据-ES的索引）"><a href="#创建文档（Mysql表中的数据-ES的索引）" class="headerlink" title="创建文档（Mysql表中的数据/ES的索引）"></a>创建文档（Mysql表中的数据/ES的索引）</h3><p>ES的文档相当于Mysql数据库表中的一条条记录；</p>
+<h4 id="创建方式"><a href="#创建方式" class="headerlink" title="创建方式"></a>创建方式</h4><p>postman 发送： put或post：<a href="http://localhost:9200/xc_course/doc/id值，在参数里面写json数据参数（如果不指定id值，ES会自动生成id）" target="_blank" rel="noopener">http://localhost:9200/xc_course/doc/id值，在参数里面写json数据参数（如果不指定id值，ES会自动生成id）</a></p>
+<p><a href="http://localhost:9200/xc_course/doc/4028e58161bcf7f40161bcf8b77c0000" target="_blank" rel="noopener">http://localhost:9200/xc_course/doc/4028e58161bcf7f40161bcf8b77c0000</a></p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"name"</span>:<span class="string">"Bootstrap开发框架"</span>,</span><br><span class="line">  <span class="attr">"description"</span>:<span class="string">"Bootstrap是由Twitter推出的一个前台页面开发框架，在行业之中使用较为广泛。此开发框架包</span></span><br><span class="line"><span class="string">含了大量的CSS、JS程序代码，可以帮助开发者（尤其是不擅长页面开发的程序人员）轻松的实现一个不受浏览器限制的</span></span><br><span class="line"><span class="string">精美界面效果。"</span>,</span><br><span class="line">  <span class="attr">"studymodel"</span>:<span class="string">"201001"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用postman测试：</p>
+<p><img src="https://pic.stackoverflow.wiki/uploadImages/240e/390/caf/df80/a8b7/2677/2165/9437/2019/11/17/09/37/4f7e9c3d-c4d2-4c03-bce3-9021daed2d3d.png" alt></p>
+<p>通过head插件查询数据：</p>
+<p><img src="C:%5CUsers%5C%E9%99%88%E4%B8%89%E7%AC%A0%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1573954785955.png" alt></p>
+<h3 id="查询文档"><a href="#查询文档" class="headerlink" title="查询文档"></a>查询文档</h3><h4 id="根据id精确查询某文档"><a href="#根据id精确查询某文档" class="headerlink" title="根据id精确查询某文档"></a>根据id精确查询某文档</h4><p>发送： get <a href="http://localhost:9200/xc_course/doc/id值；" target="_blank" rel="noopener">http://localhost:9200/xc_course/doc/id值；</a></p>
+<p>使用postman测试：</p>
+<p><img src="https://pic.stackoverflow.wiki/uploadImages/240e/390/caf/df80/a8b7/2677/2165/9437/2019/11/17/09/41/71c5ab47-97de-435d-93e1-8eefeca709cb.png" alt></p>
+<h4 id="查询所有记录"><a href="#查询所有记录" class="headerlink" title="查询所有记录"></a>查询所有记录</h4><p>发送 get <a href="http://localhost:9200/xc_course/doc/_search" target="_blank" rel="noopener">http://localhost:9200/xc_course/doc/_search</a></p>
+<h4 id="根据某字段进行模糊查询"><a href="#根据某字段进行模糊查询" class="headerlink" title="根据某字段进行模糊查询"></a>根据某字段进行模糊查询</h4><p>发送 get <a href="http://localhost:9200/xc_course/doc/_search?q=name:bootstrap" target="_blank" rel="noopener">http://localhost:9200/xc_course/doc/_search?q=name:bootstrap</a></p>
+<p><a href="http://localhost:9200/索引库名/类型名/_search?q=字段名:模糊查询的值" target="_blank" rel="noopener">http://localhost:9200/索引库名/类型名/_search?q=字段名:模糊查询的值</a></p>
+<p>查出的数据格式如下</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"took"</span>: <span class="number">107</span>,</span><br><span class="line">    <span class="attr">"timed_out"</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">"_shards"</span>: &#123;</span><br><span class="line">        <span class="attr">"total"</span>: <span class="number">1</span>,</span><br><span class="line">        <span class="attr">"successful"</span>: <span class="number">1</span>,</span><br><span class="line">        <span class="attr">"skipped"</span>: <span class="number">0</span>,</span><br><span class="line">        <span class="attr">"failed"</span>: <span class="number">0</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"hits"</span>: &#123;</span><br><span class="line">        <span class="attr">"total"</span>: <span class="number">1</span>,</span><br><span class="line">        <span class="attr">"max_score"</span>: <span class="number">0.2876821</span>,</span><br><span class="line">        <span class="attr">"hits"</span>: [</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">"_index"</span>: <span class="string">"xc_course"</span>,</span><br><span class="line">                <span class="attr">"_type"</span>: <span class="string">"doc"</span>,</span><br><span class="line">                <span class="attr">"_id"</span>: <span class="string">"4028e58161bcf7f40161bcf8b77c0000"</span>,</span><br><span class="line">                <span class="attr">"_score"</span>: <span class="number">0.2876821</span>,</span><br><span class="line">                <span class="attr">"_source"</span>: &#123;</span><br><span class="line">                    <span class="attr">"name"</span>: <span class="string">"Bootstrap开发框架"</span>,</span><br><span class="line">                    <span class="attr">"description"</span>: <span class="string">"Bootstrap是由Twitter推出的一个前台页面开发框架，在行业之中使用较为广泛。此开发框架包含了大量的CSS、JS程序代码，可以帮助开发者（尤其是不擅长页面开发的程序人员）轻松的实现一个不受浏览器限制的精美界面效果。"</span>,</span><br><span class="line">                    <span class="attr">"studymodel"</span>: <span class="string">"201001"</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>took：本次操作花费的时间，单位为毫秒；</li>
+<li>timed_out：请求是否超时</li>
+<li>_shards：说明本次操作工搜索了那些分片；</li>
+<li>hits：搜索命中的记录；</li>
+<li>hits.total：符合条件的文档总数；</li>
+<li>hits.hits：匹配度较高的前N个文档；</li>
+<li>hits.max_score：文档匹配得分，这里为最高分；</li>
+<li>_score：每个文档都有一个匹配度得分，按照降序排列；</li>
+<li>_scoure：显示了文档的原始内容；</li>
+</ul>
+<h3 id="IK分词器"><a href="#IK分词器" class="headerlink" title="IK分词器"></a>IK分词器</h3><p>使用IK分词器的原因是ES本身对中文的支持不好</p>
+<p>下载IK分词器，地址（Github地址：<a href="https://github.com/medcl/elasticsearch-analysis-ik）" target="_blank" rel="noopener">https://github.com/medcl/elasticsearch-analysis-ik）</a></p>
+<p>Windows下载zip包，版本一定和ES版本相同！</p>
+<p>下载完之后解压到es的安装目录下的plugins目录下即可</p>
+<p>安装好之后重启es：</p>
+<p>测试ik分词器的效果：</p>
+<p><img src="C:%5CUsers%5C%E9%99%88%E4%B8%89%E7%AC%A0%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1573956321841.png" alt></p>
+<h4 id="两种分词模式"><a href="#两种分词模式" class="headerlink" title="两种分词模式"></a>两种分词模式</h4><p>ik分词器有两种分词模式：ik_max_word和ik_smart模式。<br>1、ik_max_word<br>会将文本做最细粒度的拆分，比如会将“中华人民共和国人民大会堂”拆分为“中华人民共和国、中华人民、中华、<br>华人、人民共和国、人民、共和国、大会堂、大会、会堂等词语。<br>2、ik_smart<br>会做最粗粒度的拆分，比如会将“中华人民共和国人民大会堂”拆分为中华人民共和国、人民大会堂。<br>测试两种分词模式：</p>
+<p>发送： post localhost:9200/_analyze<br>{“text”:”中华人民共和国人民大会堂”,”analyzer”:”ik_smart” }</p>
+<h4 id="自定义词库"><a href="#自定义词库" class="headerlink" title="自定义词库"></a>自定义词库</h4><p>不管是ES自带的分词器，还是ik这种分词器插件，都是对于常用的词语的进行分词处理，如果在项目中用到的有专有的词语，可以自定义词库</p>
+<p>IK分词器自带一个main.dic的文件，此文件就是词库文件：</p>
+<p><img src="C:%5CUsers%5C%E9%99%88%E4%B8%89%E7%AC%A0%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1573956696168.png" alt></p>
+<p><img src="https://pic.stackoverflow.wiki/uploadImages/240e/390/caf/df80/a8b7/2677/2165/9437/2019/11/17/10/17/204860f8-2691-4a9f-b7bd-0c3a49fdb0f8.png" alt></p>
+<p>自定义一个词库文件，my.dic</p>
+<p><img src="https://pic.stackoverflow.wiki/uploadImages/240e/390/caf/df80/a8b7/2677/2165/9437/2019/11/17/10/17/e7b4b8ad-72a7-46e2-8a86-1b5cbf67610e.png" alt></p>
+<p>重启ES，测试分词效果：</p>
+<p><img src="https://pic.stackoverflow.wiki/uploadImages/240e/390/caf/df80/a8b7/2677/2165/9437/2019/11/17/10/18/6f88c5a9-77e5-4bba-a58a-272c13a69fae.png" alt></p>
+<h3 id="映射"><a href="#映射" class="headerlink" title="映射"></a>映射</h3><p>如何在索引和搜索时使用IK分词器，如何指定其他类型的field，比如日期类型、数值类型呢？</p>
+<h4 id="映射维护的方法"><a href="#映射维护的方法" class="headerlink" title="映射维护的方法"></a>映射维护的方法</h4><h5 id="查询所有索引的映射："><a href="#查询所有索引的映射：" class="headerlink" title="查询所有索引的映射："></a>查询所有索引的映射：</h5><p>GET: <a href="http://localhost:9200/_mapping" target="_blank" rel="noopener">http://localhost:9200/_mapping</a></p>
+<h5 id="创建映射-1"><a href="#创建映射-1" class="headerlink" title="创建映射"></a>创建映射</h5><p>上边有</p>
+<h5 id="更新映射"><a href="#更新映射" class="headerlink" title="更新映射"></a>更新映射</h5><p>映射创建成功可以添加新字段，已有字段类型不允许被更新；</p>
+<h5 id="删除映射"><a href="#删除映射" class="headerlink" title="删除映射"></a>删除映射</h5><p>通过删除索引来删除映射</p>
+<h4 id="常用映射类型"><a href="#常用映射类型" class="headerlink" title="常用映射类型"></a>常用映射类型</h4><p><img src="https://pic.stackoverflow.wiki/uploadImages/240e/390/caf/df80/a8b7/2677/2165/9437/2019/11/17/10/24/b2ac240d-ddaf-407a-aeaa-b095a7da31c1.png" alt></p>
+<h5 id="text文本类型"><a href="#text文本类型" class="headerlink" title="text文本类型"></a>text文本类型</h5><p>字符串包括text和keyword两种类型</p>
+<ul>
+<li>text</li>
+<li>keyword</li>
+</ul>
+<p>通过analyzer属性指定分词器</p>
+<p>下边指定name的字段类型为text，使用ik分词器的ik_max_word的分词模式：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">“name”:&#123;</span><br><span class="line">    "type":"text",</span><br><span class="line">    "analyzer":"ik_max_word"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上指定了analyzer是指在索引和搜索都使用ik_max_word，如果想单独定义搜索时使用的分词器则可以通过search_analyzer属性；</p>
+<p>对于ik分词器建议是索引时使用ik_man_word细粒度分词，搜索时使用ik_smart提高搜索精确性：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">“name”:&#123;</span><br><span class="line">    "type":"text",</span><br><span class="line">    "analyzer":"ik_max_word"</span><br><span class="line">    "search_analzer":"ik_smart"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="index"><a href="#index" class="headerlink" title="index"></a>index</h5><p>index是创建映射的时候指定字段是否添加索引，只有进行索引才可以从索引库搜索到，为false时不添加索引</p>
+<h5 id="store"><a href="#store" class="headerlink" title="store"></a>store</h5><blockquote>
+<p>是否在source之外存储，每个文档索引后会在 ES中保存一份原始文档，存放在”_source”中，一般情况下不需要设置<br>store为true，因为在_source中已经有一份原始文档了。</p>
+</blockquote>
+<h5 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h5><p>删除已有的xc_course/doc下的映射</p>
+<p>创建新映射：Post <a href="http://localhost:9200/xc_course/doc/_mapping" target="_blank" rel="noopener">http://localhost:9200/xc_course/doc/_mapping</a></p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"properties"</span>: &#123;   </span><br><span class="line">        <span class="attr">"name"</span>: &#123;</span><br><span class="line">            <span class="attr">"type"</span>: <span class="string">"text"</span>,</span><br><span class="line">            <span class="attr">"analyzer"</span>:<span class="string">"ik_max_word"</span>,</span><br><span class="line">            <span class="attr">"search_analyzer"</span>:<span class="string">"ik_smart"</span></span><br><span class="line">        &#125;,         </span><br><span class="line">        <span class="attr">"description"</span>: &#123;</span><br><span class="line">            <span class="attr">"type"</span>: <span class="string">"text"</span>,</span><br><span class="line">            <span class="attr">"analyzer"</span>:<span class="string">"ik_max_word"</span>,</span><br><span class="line">            <span class="attr">"search_analyzer"</span>:<span class="string">"ik_smart"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"pic"</span>:&#123;</span><br><span class="line">            <span class="attr">"type"</span>:<span class="string">"text"</span>,</span><br><span class="line">            <span class="attr">"index"</span>:<span class="literal">false</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"studymodel"</span>:&#123;</span><br><span class="line">            <span class="attr">"type"</span>:<span class="string">"text"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>插入一条文档：</p>
+<p>Post <a href="http://localhost:9200/xc_course/doc/4028e58161bcf7f40161bcf8b77c0000" target="_blank" rel="noopener">http://localhost:9200/xc_course/doc/4028e58161bcf7f40161bcf8b77c0000</a></p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"name"</span>:<span class="string">"Bootstrap开发框架"</span>,</span><br><span class="line">  <span class="attr">"description"</span>:<span class="string">"Bootstrap是由Twitter推出的一个前台页面开发框架，在行业之中使用较为广泛。此开发框架包</span></span><br><span class="line"><span class="string">含了大量的CSS、JS程序代码，可以帮助开发者（尤其是不擅长页面开发的程序人员）轻松的实现一个不受浏览器限制的</span></span><br><span class="line"><span class="string">精美界面效果。"</span>,</span><br><span class="line">  <span class="attr">"pic"</span>:<span class="string">"group1/M00/00/01/wKhlQFqO4MmAOP53AAAcwDwm6SU490.jpg"</span>,</span><br><span class="line">  <span class="attr">"studymodel"</span>:<span class="string">"201002"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>查询测试：<br>Get <a href="http://localhost:9200/xc_course/_search?q=name:开发" target="_blank" rel="noopener">http://localhost:9200/xc_course/_search?q=name:开发</a><br>Get <a href="http://localhost:9200/xc_course/_search?q=description:开发" target="_blank" rel="noopener">http://localhost:9200/xc_course/_search?q=description:开发</a><br>Get <a href="http://localhost:9200/xc_course/_search" target="_blank" rel="noopener">http://localhost:9200/xc_course/_search</a>?<br>q=pic:group1/M00/00/01/wKhlQFqO4MmAOP53AAAcwDwm6SU490.jpg<br>Get  <a href="http://localhost:9200/xc_course/_search?q=studymodel:201002" target="_blank" rel="noopener">http://localhost:9200/xc_course/_search?q=studymodel:201002</a><br>通过测试发现： name和description都支持全文检索，pic不可作为查询条件。</p>
 
     </div>
 
@@ -426,6 +546,10 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/11/17/ElasticSearch索引的增删改查/" rel="prev" title="ElasticSearch索引的增删改查">
+                  ElasticSearch索引的增删改查 <i class="fa fa-chevron-right"></i>
+                </a>
               
             </div>
           </div>
@@ -474,7 +598,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#原理与应用"><span class="nav-number">1.</span> <span class="nav-text">原理与应用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#索引结构"><span class="nav-number">1.1.</span> <span class="nav-text">索引结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Restful应用方法"><span class="nav-number">1.2.</span> <span class="nav-text">Restful应用方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ElasticSearch的安装"><span class="nav-number">2.</span> <span class="nav-text">ElasticSearch的安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装ElasticSearch"><span class="nav-number">2.1.</span> <span class="nav-text">安装ElasticSearch</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置文件"><span class="nav-number">2.2.</span> <span class="nav-text">配置文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#elasticsearch-yml"><span class="nav-number">2.3.</span> <span class="nav-text">elasticsearch.yml</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jvm-options"><span class="nav-number">2.4.</span> <span class="nav-text">jvm.options</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#log4j-properties"><span class="nav-number">2.5.</span> <span class="nav-text">log4j.properties</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#head插件安装"><span class="nav-number">2.6.</span> <span class="nav-text">head插件安装</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#原理与应用"><span class="nav-number">1.</span> <span class="nav-text">原理与应用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#索引结构"><span class="nav-number">1.1.</span> <span class="nav-text">索引结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Restful应用方法"><span class="nav-number">1.2.</span> <span class="nav-text">Restful应用方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ElasticSearch的安装"><span class="nav-number">2.</span> <span class="nav-text">ElasticSearch的安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装ElasticSearch"><span class="nav-number">2.1.</span> <span class="nav-text">安装ElasticSearch</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置文件"><span class="nav-number">2.2.</span> <span class="nav-text">配置文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#elasticsearch-yml"><span class="nav-number">2.3.</span> <span class="nav-text">elasticsearch.yml</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jvm-options"><span class="nav-number">2.4.</span> <span class="nav-text">jvm.options</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#log4j-properties"><span class="nav-number">2.5.</span> <span class="nav-text">log4j.properties</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#head插件安装"><span class="nav-number">2.6.</span> <span class="nav-text">head插件安装</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建索引库（Mysql的表）"><span class="nav-number">3.</span> <span class="nav-text">创建索引库（Mysql的表）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用postman或curl的接口测试工具创建"><span class="nav-number">3.1.</span> <span class="nav-text">使用postman或curl的接口测试工具创建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用head插件创建索引库："><span class="nav-number">3.2.</span> <span class="nav-text">使用head插件创建索引库：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建映射（Mysql的字段）"><span class="nav-number">4.</span> <span class="nav-text">创建映射（Mysql的字段）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#概念"><span class="nav-number">4.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建映射"><span class="nav-number">4.2.</span> <span class="nav-text">创建映射</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建文档（Mysql表中的数据-ES的索引）"><span class="nav-number">5.</span> <span class="nav-text">创建文档（Mysql表中的数据/ES的索引）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建方式"><span class="nav-number">5.1.</span> <span class="nav-text">创建方式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询文档"><span class="nav-number">6.</span> <span class="nav-text">查询文档</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#根据id精确查询某文档"><span class="nav-number">6.1.</span> <span class="nav-text">根据id精确查询某文档</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查询所有记录"><span class="nav-number">6.2.</span> <span class="nav-text">查询所有记录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#根据某字段进行模糊查询"><span class="nav-number">6.3.</span> <span class="nav-text">根据某字段进行模糊查询</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IK分词器"><span class="nav-number">7.</span> <span class="nav-text">IK分词器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#两种分词模式"><span class="nav-number">7.1.</span> <span class="nav-text">两种分词模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自定义词库"><span class="nav-number">7.2.</span> <span class="nav-text">自定义词库</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#映射"><span class="nav-number">8.</span> <span class="nav-text">映射</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#映射维护的方法"><span class="nav-number">8.1.</span> <span class="nav-text">映射维护的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#查询所有索引的映射："><span class="nav-number">8.1.1.</span> <span class="nav-text">查询所有索引的映射：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#创建映射-1"><span class="nav-number">8.1.2.</span> <span class="nav-text">创建映射</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#更新映射"><span class="nav-number">8.1.3.</span> <span class="nav-text">更新映射</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#删除映射"><span class="nav-number">8.1.4.</span> <span class="nav-text">删除映射</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常用映射类型"><span class="nav-number">8.2.</span> <span class="nav-text">常用映射类型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#text文本类型"><span class="nav-number">8.2.1.</span> <span class="nav-text">text文本类型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#index"><span class="nav-number">8.2.2.</span> <span class="nav-text">index</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#store"><span class="nav-number">8.2.3.</span> <span class="nav-text">store</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#测试"><span class="nav-number">8.2.4.</span> <span class="nav-text">测试</span></a></li></ol></li></ol></li></ol></div>
         
       </div>
       <!--/noindex-->
@@ -492,7 +616,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

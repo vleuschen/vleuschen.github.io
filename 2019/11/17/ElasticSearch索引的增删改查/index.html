@@ -58,17 +58,19 @@
   };
 </script>
 
-  <meta name="description" content="技术分享与成长经历">
-<meta property="og:type" content="website">
-<meta property="og:title" content="VleusChen">
-<meta property="og:url" content="http://yoursite.com/archives/2019/10/index.html">
+  <meta name="description" content="ES客户端RestClientRestClient是官方推荐使用的，包括两种：  Java Low Level REST Client Java High Level REST Client  现在ES6.0之后推荐Java High Level REST Client，不过有些功能暂时还没有，有的话用 Java High Level REST Client，没有的话用低等级的；">
+<meta name="keywords" content="ElasticSearch入门">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ElasticSearch索引的增删改查">
+<meta property="og:url" content="http://yoursite.com/2019/11/17/ElasticSearch索引的增删改查/index.html">
 <meta property="og:site_name" content="VleusChen">
-<meta property="og:description" content="技术分享与成长经历">
+<meta property="og:description" content="ES客户端RestClientRestClient是官方推荐使用的，包括两种：  Java Low Level REST Client Java High Level REST Client  现在ES6.0之后推荐Java High Level REST Client，不过有些功能暂时还没有，有的话用 Java High Level REST Client，没有的话用低等级的；">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-11-17T03:01:38.007Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="VleusChen">
-<meta name="twitter:description" content="技术分享与成长经历">
-  <link rel="canonical" href="http://yoursite.com/archives/2019/10/">
+<meta name="twitter:title" content="ElasticSearch索引的增删改查">
+<meta name="twitter:description" content="ES客户端RestClientRestClient是官方推荐使用的，包括两种：  Java Low Level REST Client Java High Level REST Client  现在ES6.0之后推荐Java High Level REST Client，不过有些功能暂时还没有，有的话用 Java High Level REST Client，没有的话用低等级的；">
+  <link rel="canonical" href="http://yoursite.com/2019/11/17/ElasticSearch索引的增删改查/">
 
 
 <script id="page-configurations">
@@ -76,13 +78,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false,
+    isPost: true,
     isPage: false,
-    isArchive: true
+    isArchive: false
   };
 </script>
 
-  <title>归档 | VleusChen</title>
+  <title>ElasticSearch索引的增删改查 | VleusChen</title>
   
 
 
@@ -212,87 +214,137 @@
         <div class="content-wrap">
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        
-        
-        
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/17/ElasticSearch索引的增删改查/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="程序员小陈">
+      <meta itemprop="description" content="技术分享与成长经历">
+      <meta itemprop="image" content="https://pic.stackoverflow.wiki/uploadImages/240e/390/caa/ecd0/bcd8/37b6/684a/c360/2019/11/12/23/28/e304e291-a53f-42cb-b565-a08af03cbda5.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="VleusChen">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">ElasticSearch索引的增删改查
+
           
-        
-        <span class="collection-header">嗯..! 目前共计 8 篇日志。 继续努力。</span>
-      </div>
-      
+        </h1>
 
-      
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
 
-  
-  
+              
+                
+              
 
-  
+              <time title="创建时间：2019-11-17 10:59:59 / 修改时间：11:01:38" itemprop="dateCreated datePublished" datetime="2019-11-17T10:59:59+08:00">2019-11-17</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/ElasticSearch/" itemprop="url" rel="index"><span itemprop="name">ElasticSearch</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
     
-    <div class="collection-year">
-      <h1 class="collection-header">2019</h1>
-    </div>
-  
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/10/20/SpringIOC学习-一/" itemprop="url">
-            <span itemprop="name">SpringIOC学习(一)</span>
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-10-20T20:16:40+08:00"
-              content="2019-10-20">
-          10-20
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
+      
+        <h2 id="ES客户端"><a href="#ES客户端" class="headerlink" title="ES客户端"></a>ES客户端</h2><h3 id="RestClient"><a href="#RestClient" class="headerlink" title="RestClient"></a>RestClient</h3><p>RestClient是官方推荐使用的，包括两种：</p>
+<ul>
+<li>Java Low Level REST Client</li>
+<li>Java High Level REST Client</li>
+</ul>
+<p>现在ES6.0之后推荐Java High Level REST Client，不过有些功能暂时还没有，有的话用</p>
+<p>Java High Level REST Client，没有的话用低等级的；</p>
 
     </div>
+
+    
+    
+    
+        
+      
+	  <div>
+		  
+			<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+		  
+	  </div>
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/ElasticSearch入门/" rel="tag"># ElasticSearch入门</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/11/16/ElasticSearch入门与安装/" rel="next" title="ElasticSearch安装与入门学习">
+                  <i class="fa fa-chevron-left"></i> ElasticSearch安装与入门学习
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
+    
   </div>
   
   
   
+  </article>
 
-  
-
+  </div>
 
 
           </div>
@@ -311,6 +363,11 @@
 
   <aside class="sidebar">
     <div class="sidebar-inner">
+        
+        
+        
+        
+      
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
@@ -323,6 +380,8 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ES客户端"><span class="nav-number">1.</span> <span class="nav-text">ES客户端</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RestClient"><span class="nav-number">1.1.</span> <span class="nav-text">RestClient</span></a></li></ol></li></ol></div>
+        
       </div>
       <!--/noindex-->
 
