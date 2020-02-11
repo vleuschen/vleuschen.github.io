@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/duola.jpeg?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/duola.jpeg?v=7.4.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-pace-theme-mini.min.css?v=1.0.2">
+  <script src="true"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.4.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="title: Kafka的相关知识的学习date: 2020-02-11 20:16:40tags: - Kafkacategories: Kafka  Kafka是一个分布式的基于发布/订阅模式的消息队列（Message Queue），主要用于大数据实时处理领域（Spark用的多一点）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VleusChen">
+<meta property="og:url" content="http://yoursite.com/2020/02/11/Kafka相关知识的整理学习/index.html">
+<meta property="og:site_name" content="VleusChen">
+<meta property="og:description" content="title: Kafka的相关知识的学习date: 2020-02-11 20:16:40tags: - Kafkacategories: Kafka  Kafka是一个分布式的基于发布/订阅模式的消息队列（Message Queue），主要用于大数据实时处理领域（Spark用的多一点）">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://pic.stackoverflow.wiki/uploadImages/115/60/101/250/2020/02/11/14/03/e2b4f2f5-b9d6-40cf-b71e-135e386ec03e.png">
+<meta property="og:image" content="https://pic.stackoverflow.wiki/uploadImages/115/60/101/250/2020/02/11/14/33/ddac4e83-fafc-4af6-b601-fa8a52c1e742.png">
+<meta property="og:image" content="https://pic.stackoverflow.wiki/uploadImages/115/60/101/250/2020/02/11/14/35/4618cfb9-db10-471b-b0fd-41a6a75000fa.png">
+<meta property="og:image" content="https://pic.stackoverflow.wiki/uploadImages/115/60/101/250/2020/02/11/15/33/d94b19aa-cbbd-4c13-a024-3e81f74e50a6.png">
+<meta property="og:updated_time" content="2020-02-11T13:03:33.914Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="VleusChen">
+<meta name="twitter:description" content="title: Kafka的相关知识的学习date: 2020-02-11 20:16:40tags: - Kafkacategories: Kafka  Kafka是一个分布式的基于发布/订阅模式的消息队列（Message Queue），主要用于大数据实时处理领域（Spark用的多一点）">
+<meta name="twitter:image" content="https://pic.stackoverflow.wiki/uploadImages/115/60/101/250/2020/02/11/14/03/e2b4f2f5-b9d6-40cf-b71e-135e386ec03e.png">
+  <link rel="canonical" href="http://yoursite.com/2020/02/11/Kafka相关知识的整理学习/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title> | VleusChen</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">VleusChen</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">最牛逼的梦想，最傻逼的坚持。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/11/Kafka相关知识的整理学习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="程序员小陈">
+      <meta itemprop="description" content="技术分享与成长经历">
+      <meta itemprop="image" content="https://pic.stackoverflow.wiki/uploadImages/240e/390/caa/ecd0/bcd8/37b6/684a/c360/2019/11/12/23/28/e304e291-a53f-42cb-b565-a08af03cbda5.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="VleusChen">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-02-11 20:58:20 / 修改时间：21:03:33" itemprop="dateCreated datePublished" datetime="2020-02-11T20:58:20+08:00">2020-02-11</time>
+            </span>
+          
+            
+
+            
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">title:</span> <span class="string">Kafka的相关知识的学习</span></span><br><span class="line"><span class="attr">date:</span> <span class="number">2020</span><span class="bullet">-02</span><span class="bullet">-11</span> <span class="number">20</span><span class="string">:16:40</span></span><br><span class="line"><span class="attr">tags:</span></span><br><span class="line"><span class="bullet"> -</span> <span class="string">Kafka</span></span><br><span class="line"><span class="attr">categories:</span> <span class="string">Kafka</span></span><br></pre></td></tr></table></figure>
+
+<p>Kafka是一个分布式的基于<strong>发布/订阅模式</strong>的消息队列（Message Queue），主要用于大数据实时处理领域（Spark用的多一点）</p>
+<a id="more"></a>
+
+<h1 id="Kafka概述"><a href="#Kafka概述" class="headerlink" title="Kafka概述"></a>Kafka概述</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>Kafka是一个分布式的基于<strong>发布/订阅模式</strong>的消息队列（Message Queue），主要用于大数据实时处理领域（Spark用的多一点）</p>
+<h2 id="消息队列"><a href="#消息队列" class="headerlink" title="消息队列"></a>消息队列</h2><h3 id="传统消息队列的应用场景"><a href="#传统消息队列的应用场景" class="headerlink" title="传统消息队列的应用场景"></a>传统消息队列的应用场景</h3><p><img src="https://pic.stackoverflow.wiki/uploadImages/115/60/101/250/2020/02/11/14/03/e2b4f2f5-b9d6-40cf-b71e-135e386ec03e.png" alt></p>
+<h4 id="使用消息队列的好处"><a href="#使用消息队列的好处" class="headerlink" title="使用消息队列的好处"></a>使用消息队列的好处</h4><p>1、解耦</p>
+<p>允许独立扩展或者修改两边的处理过程，主要确保它们遵守同样的接口约束</p>
+<p>2、可恢复性</p>
+<p>系统的一部分组件失效时，不会影响到整个系统。消息队列 降低了进程间的耦合度，索引即使一个处理消息的进程挂掉，加入队列中的消息仍然可以在系统恢复后被处理</p>
+<p>3、缓冲</p>
+<p>有助于控制和优化数据流经过系统的速度，解决生产消息和消费消息的处理速度不一致的问题；（生产大于消费的问题）</p>
+<p>4、灵活性&amp;峰值处理能力</p>
+<p>使用消息队列能够使得关键组件顶住突发的访问压力，而不会因为突发的超符合的请求而完全崩溃；</p>
+<p>5、异步通信</p>
+<p>很多时候，用户不想也不需要立即处理消息。消息队列提供了异步处理机制，允许用户<br>把一个消息放入队列，但并不立即处理它。想向队列中放入多少消息就放多少，然后在需要<br>的时候再去处理它们。</p>
+<h3 id="消息队列的两种模式"><a href="#消息队列的两种模式" class="headerlink" title="消息队列的两种模式"></a>消息队列的两种模式</h3><h4 id="点对点模式"><a href="#点对点模式" class="headerlink" title="点对点模式"></a>点对点模式</h4><p>特点：一对一，消费者主动拉取数据，消息收到后消息自动清除；</p>
+<blockquote>
+<p>消息生产者生产消息发送到Queue中，然后消息消费者从Queue中取出并且消费消息。消息被消费以后，queue中不再有存储，所以消息消费者不可能消费到已经被消费的消息。Queue支持存在多个消费者，但是对一个消息而言，只会有一个消费者可以被消费；</p>
+</blockquote>
+<p><img src="https://pic.stackoverflow.wiki/uploadImages/115/60/101/250/2020/02/11/14/33/ddac4e83-fafc-4af6-b601-fa8a52c1e742.png" alt></p>
+<h4 id="发布-订阅模式"><a href="#发布-订阅模式" class="headerlink" title="发布/订阅模式"></a>发布/订阅模式</h4><p>特点：一对多，消费者消费数据之后不会清除消息；</p>
+<blockquote>
+<p>消息生产者（发布）消息到topic中，同时又多个消息消费者（订阅）消费该消息，和点对点消息不同，发布到topic的消息会被所有订阅者消费</p>
+</blockquote>
+<p><img src="https://pic.stackoverflow.wiki/uploadImages/115/60/101/250/2020/02/11/14/35/4618cfb9-db10-471b-b0fd-41a6a75000fa.png" alt></p>
+<p>消费者拉的模式和队列推的模式；</p>
+<h2 id="Kafka基础架构"><a href="#Kafka基础架构" class="headerlink" title="Kafka基础架构"></a>Kafka基础架构</h2><p> <img src="https://pic.stackoverflow.wiki/uploadImages/115/60/101/250/2020/02/11/15/33/d94b19aa-cbbd-4c13-a024-3e81f74e50a6.png" alt></p>
+<ul>
+<li>Producer：消息生产者，就是向Kafka Broker发消息的客户端；</li>
+<li>Consumer：消息消费者，向Kafka Broker读取消息的客户端；</li>
+<li>ConsumerGroup（CG）：消费者组，由多个consumer组成。<strong>消费者组内每个消费者负责消费不同分区的数据，一个分区只能由一个组内消费者消费，消费者组之间互不影响</strong>，所有的消费者都属于某个消费者组，即消费者组是逻辑上的一个订阅者；</li>
+<li>Broker：一台Kafka服务器就是一个broker，一个集群由多个broker组成。一个broker可以容纳多个topic；</li>
+<li>Topic：可以理解为一个队列，生产者和消费者面向的都是一个topic；</li>
+<li>Partition：为了实现扩展性，一个非常大的topic可以分布到多个broker（服务器）上，<strong>一个topic可以分为多个partition</strong>，每个partition是一个有序的队列；</li>
+<li>Replica：副本，为保证集群中的某个节点发生故障时，<strong>该节点上的partition数据不丢失，且Kafka能够正常工作</strong>，Kafka提供了副本机制，一个topic的每个分区都有若干个副本，一个leader和若干个follower；</li>
+<li>leader：每个分区多个副本的”主“，生产者发送数据的对象，以及消费者消费数据的对象都是leader；</li>
+<li>follower：每个分区多个副本中的”从”,实时从leader中同步数据，保持和leader数据的同步，leader发生故障时，某个follower会成为新的leader；</li>
+</ul>
+<h1 id="Kafka快速入门"><a href="#Kafka快速入门" class="headerlink" title="Kafka快速入门"></a>Kafka快速入门</h1><h1 id="Kafka架构深入"><a href="#Kafka架构深入" class="headerlink" title="Kafka架构深入"></a>Kafka架构深入</h1><h1 id="Kafka-API"><a href="#Kafka-API" class="headerlink" title="Kafka API"></a>Kafka API</h1><h1 id="Kafka监控"><a href="#Kafka监控" class="headerlink" title="Kafka监控"></a>Kafka监控</h1><h1 id="Flume对接Kafka"><a href="#Flume对接Kafka" class="headerlink" title="Flume对接Kafka"></a>Flume对接Kafka</h1><h1 id="Kafka面试题"><a href="#Kafka面试题" class="headerlink" title="Kafka面试题"></a>Kafka面试题</h1>
+    </div>
+
+    
+    
+    
+        
+      
+	  <div>
+		  
+			<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+		  
+	  </div>
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/11/17/深入理解Java内存模型/" rel="next" title="深入理解Java内存模型">
+                  <i class="fa fa-chevron-left"></i> 深入理解Java内存模型
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Kafka概述"><span class="nav-number">1.</span> <span class="nav-text">Kafka概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义"><span class="nav-number">1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消息队列"><span class="nav-number">1.2.</span> <span class="nav-text">消息队列</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#传统消息队列的应用场景"><span class="nav-number">1.2.1.</span> <span class="nav-text">传统消息队列的应用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用消息队列的好处"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">使用消息队列的好处</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#消息队列的两种模式"><span class="nav-number">1.2.2.</span> <span class="nav-text">消息队列的两种模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#点对点模式"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">点对点模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#发布-订阅模式"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">发布/订阅模式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kafka基础架构"><span class="nav-number">1.3.</span> <span class="nav-text">Kafka基础架构</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Kafka快速入门"><span class="nav-number">2.</span> <span class="nav-text">Kafka快速入门</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Kafka架构深入"><span class="nav-number">3.</span> <span class="nav-text">Kafka架构深入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Kafka-API"><span class="nav-number">4.</span> <span class="nav-text">Kafka API</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Kafka监控"><span class="nav-number">5.</span> <span class="nav-text">Kafka监控</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Flume对接Kafka"><span class="nav-number">6.</span> <span class="nav-text">Flume对接Kafka</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Kafka面试题"><span class="nav-number">7.</span> <span class="nav-text">Kafka面试题</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="https://pic.stackoverflow.wiki/uploadImages/240e/390/caa/ecd0/bcd8/37b6/684a/c360/2019/11/12/23/28/e304e291-a53f-42cb-b565-a08af03cbda5.jpg"
+      alt="程序员小陈">
+  <p class="site-author-name" itemprop="name">程序员小陈</p>
+  <div class="site-description" itemprop="description">技术分享与成长经历</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/vleuschen" title="GitHub &rarr; https://github.com/vleuschen" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">程序员小陈</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.4.0</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+
+
+    
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/pisces.js?v=7.4.0"></script>
+<script src="/js/next-boot.js?v=7.4.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
